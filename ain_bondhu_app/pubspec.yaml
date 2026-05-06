@@ -1,0 +1,32 @@
+name: ain_bondhu_app
+description: A voice-first legal aid assistant for garment workers in Bangladesh.
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  google_fonts: ^6.1.0
+  font_awesome_flutter: ^10.6.0
+  file_picker: ^8.0.0+1
+  pdf: ^3.10.7
+  printing: ^5.11.1
+  share_plus: ^9.0.0
+  path_provider: ^2.1.2
+  intl: ^0.19.0
+  flutter_spinkit: ^5.2.0
+  animate_do: ^3.3.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  # Note: You may need to add your own assets (images/fonts) here later
+  # assets:
+  #   - assets/images/logo.png
