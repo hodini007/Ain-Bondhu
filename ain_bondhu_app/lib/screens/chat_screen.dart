@@ -144,8 +144,47 @@ class _ChatScreenState extends State<ChatScreen> {
                 ],
               ),
             ),
+          _buildQuickSuggestions(),
           _buildInputArea(),
         ],
+      ),
+    );
+  }
+
+  Widget _buildQuickSuggestions() {
+    final suggestions = [
+      {'label': 'বেতন পাচ্ছিনা', 'icon': Icons.money_off},
+      {'label': 'ছুটি দিচ্ছে না', 'icon': Icons.event_busy},
+      {'label': 'ছাঁটাই করেছে', 'icon': Icons.person_remove},
+      {'label': 'অগ্নি নিরাপত্তা', 'icon': Icons.local_fire_department},
+      {'label': 'খারাপ ব্যবহার', 'icon': Icons.gavel},
+    ];
+
+    return Container(
+      height: 50,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        itemCount: suggestions.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: FadeInRight(
+              delay: Duration(milliseconds: 100 * index),
+              child: ActionChip(
+                avatar: Icon(suggestions[index]['icon'] as IconData, size: 16, color: Colors.teal.shade700),
+                label: Text(suggestions[index]['label'] as String),
+                onPressed: () {
+                  _controller.text = suggestions[index]['label'] as String;
+                  _sendMessage();
+                },
+                backgroundColor: Colors.teal.shade50,
+                side: BorderSide(color: Colors.teal.shade100),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
