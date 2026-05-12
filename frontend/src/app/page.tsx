@@ -628,7 +628,7 @@ export default function Home() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
           <div className="w-full max-w-md rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-light)] shadow-[var(--shadow-card)] p-6">
             <div className="flex items-center justify-between mb-5">
-              <h2 className="bn text-lg font-semibold text-[var(--ink)]">RunPod Settings</h2>
+              <h2 className="bn text-lg font-semibold text-[var(--ink)]">Settings</h2>
               <button
                 onClick={() => setShowSettings(false)}
                 className="text-[var(--ink-muted)] hover:text-[var(--ink)]"
@@ -636,6 +636,34 @@ export default function Home() {
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
+              </button>
+            </div>
+            <div className="flex gap-2 mb-4">
+              <button
+                onClick={() =>
+                  setPendingSettings({
+                    baseUrl: "http://localhost:11434/v1",
+                    apiKey: "",
+                    modelName: "gemma-4-E4B-it",
+                    backendUrl: pendingSettings.backendUrl,
+                  })
+                }
+                className="flex-1 rounded-xl border border-[var(--border-light)] bg-[var(--bg-elevated)] px-3 py-2 text-xs font-medium text-[var(--ink-soft)] hover:bg-[var(--accent-light)] hover:text-[var(--accent)] hover:border-[var(--accent)] transition-all"
+              >
+                🖥️ Ollama (Local)
+              </button>
+              <button
+                onClick={() =>
+                  setPendingSettings({
+                    baseUrl: "",
+                    apiKey: "",
+                    modelName: "",
+                    backendUrl: pendingSettings.backendUrl,
+                  })
+                }
+                className="flex-1 rounded-xl border border-[var(--border-light)] bg-[var(--bg-elevated)] px-3 py-2 text-xs font-medium text-[var(--ink-soft)] hover:bg-[var(--accent-light)] hover:text-[var(--accent)] hover:border-[var(--accent)] transition-all"
+              >
+                ☁️ RunPod
               </button>
             </div>
             <div className="flex flex-col gap-4">
