@@ -1,65 +1,108 @@
-# Ain-Bondhu (Gemma 4 Good Hackathon)
+# Ain-Bondhu — বাঙালি শ্রমিকের অধিকার সহায়ক
 
-Bangla-first worker rights assistant with offline demo mode, RAG citations, and formal complaint letter generation.
+A Bangla‑first AI assistant that helps Bangladeshi workers understand their legal rights and generate formal complaint letters, powered by **Gemma 4** on RunPod.
 
-## Project Structure
+## ✨ Features
 
-`
-frontend/  Next.js UI
-backend/   FastAPI API
-scripts/   RAG ingestion scripts
-data/      Law PDFs + demo scenarios
-`
+- **🤖 Chat‑based AI assistant** — Workers describe their problem in Bangla, the assistant explains their rights and suggests next steps
+- **📄 Complaint letter generator** — Generate a formal complaint letter in Bangla with one click
+- **🎤 Voice input** — Speak in Bangla using browser speech recognition (bn‑BD)
+- **⚙️ Live RunPod switcher** — Update the model URL/API key from the UI — no redeploy needed
+- **📥 PDF export** — Download complaint letters as formatted PDF with Bengali font
+- **🌙 Dark theme** — Easy on the eyes, designed for readability
 
-## Quick Start
+## 🧱 Architecture
+
+```
+┌──────────────┐     ┌──────────────┐     ┌──────────────────┐
+│  Netlify      │────▶│  FastAPI      │────▶│  RunPod          │
+│  Next.js UI   │     │  Backend      │     │  vLLM + Gemma 4  │
+│  (Bangla)     │     │  Port 5000    │     │  Port 8000       │
+└──────────────┘     └──────────────┘     └──────────────────┘
+```
+
+| Layer | Tech | Hosting |
+|-------|------|---------|
+| Frontend | Next.js (React, Tailwind, TypeScript) | Netlify (free) |
+| Backend | FastAPI (Python) | Any server / RunPod / Render |
+| Model | Gemma 4 (google/gemma‑4‑E4B‑it) via vLLM | RunPod GPU (free tier) |
+| RAG | Qdrant + multilingual embeddings | Local / Docker |
+| PDF | WeasyPrint with Noto Sans Bengali | Backend |
+
+## 🚀 Quick Start
 
 ### Backend
 
-`powershell
+```bash
 cd backend
 python -m venv .venv
-.\.venv\Scripts\Activate.ps1
+.venv\Scripts\Activate      # Windows
+# source .venv/bin/activate  # Linux/Mac
 pip install -r requirements.txt
-uvicorn app.main:app --reload --port 8001
-`
+uvicorn app.main:app --host 0.0.0.0 --port 5000
+```
 
 ### Frontend
 
-`powershell
+```bash
 cd frontend
 npm install
 npm run dev
-`
+```
 
-Open: http://localhost:3000
+Open http://localhost:3000
 
-## Demo-only Model Use
+### Model (RunPod)
 
-Set RunPod variables in ackend/.env when you want live inference:
+```bash
+pip install vllm
+python -m vllm.entrypoints.openai.api_server \
+  --model google/gemma-4-E4B-it \
+  --host 0.0.0.0 \
+  --port 8000 \
+  --api-key anda
+```
 
-`
-RUNPOD_API_BASE=https://your-runpod-endpoint/v1
-RUNPOD_API_KEY=your_key
-MODEL_NAME=your_model
-`
+Tunnel port 8000, then paste the URL into the app settings (⚙️).
 
-If the model is offline, the UI automatically switches to interactive demo mode.
+## ⚙️ Settings
 
-## RAG Ingestion
+After deployment, click the **gear icon** (⚙️) in the header to set:
 
-Start Qdrant locally:
+| Field | Example |
+|-------|---------|
+| Base URL | `https://xxx-8000.proxy.runpod.net/v1` |
+| API Key | `anda` |
+| Model Name | `google/gemma-4-E4B-it` |
 
-`powershell
-docker run -p 6333:6333 qdrant/qdrant
-`
+Settings are saved in your browser — you only need to update them when you spin up a new RunPod pod.
 
-Run ingestion:
+## 🎯 Usage
 
-`powershell
-python scripts\ingest_laws.py
-`
+1. Open the app
+2. Type or speak your problem in Bangla (e.g. "আমি দুই মাস ধরে বেতন পাচ্ছি না")
+3. The AI asks clarifying questions and explains your rights
+4. Click **অভিযোগপত্র** to generate a formal complaint letter
+5. Copy the letter or download as PDF
 
-## Notes
+## 📁 Project Structure
 
-- PDFs are in data/laws (mixed Bangla/English).
-- Demo scenarios are in data/demo/scenarios.json.
+```
+hackathon/
+├── frontend/          # Next.js chat UI
+│   └── src/app/       # Pages, API routes, components
+├── backend/           # FastAPI server
+│   └── app/           # main.py, rag.py, pdf.py
+├── scripts/           # RAG ingestion (ingest_laws.py)
+├── data/              # Law PDFs, demo scenarios
+├── docs/              # Architecture notes, writeup draft
+└── .env.example       # Environment template
+```
+
+## 📝 Hackathon Writeup
+
+See [`docs/writeup.md`](docs/writeup.md) for the Kaggle submission draft.
+
+## 🛡️ Disclaimer
+
+This tool provides **general informational guidance only**. It is **not a substitute for professional legal advice**. Users should consult a qualified lawyer for specific legal matters.
