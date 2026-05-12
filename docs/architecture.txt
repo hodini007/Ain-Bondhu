@@ -1,0 +1,24 @@
+Ain-Bondhu Architecture
+
+[Frontend: Next.js]
+  - Chat UI (Bangla)
+  - Offline interactive demo mode
+  - Rights summary + citations
+  - Letter preview + PDF download
+           |
+           v
+[Backend: FastAPI]
+  - /health (RunPod status)
+  - /chat (streaming)
+  - /letter (formal complaint)
+  - /retrieve (RAG citations)
+           |
+     ---------------------
+     |                   |
+     v                   v
+[RunPod vLLM]       [Qdrant]
+  Gemma 4            RAG vector store
+     |                   |
+     v                   v
+[Demo Mode]       [Law PDFs]
+  Scripted flows    Bangla/English sources

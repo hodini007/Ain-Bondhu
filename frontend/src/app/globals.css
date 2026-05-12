@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+:root {
+  --bg-main: #0f0f1a;
+  --bg-surface: #1a1a2e;
+  --bg-elevated: #252540;
+  --ink: #e8e6f0;
+  --ink-soft: #b8b6cc;
+  --ink-muted: #7a7896;
+  --accent: #d45050;
+  --accent-hover: #e06060;
+  --accent-light: #2a1414;
+  --accent-dark: #b03a3a;
+  --bubble-user: #d45050;
+  --bubble-user-text: #ffffff;
+  --bubble-bot: #1a1a2e;
+  --bubble-bot-text: #e8e6f0;
+  --border-light: #2a2a42;
+  --border-focus: #d45050;
+  --shadow-soft: 0 2px 20px rgba(0, 0, 0, 0.3);
+  --shadow-card: 0 4px 32px rgba(0, 0, 0, 0.4);
+  --green: #4caf7d;
+  --green-bg: #1a2e24;
+  --yellow: #d4a843;
+  --yellow-bg: #2a2210;
+  --red: #e06060;
+  --red-bg: #2a1414;
+}
+
+@theme inline {
+  --color-background: var(--bg-main);
+  --color-foreground: var(--ink);
+  --font-sans: var(--font-ui);
+  --font-serif: var(--font-bn-serif);
+}
+
+body {
+  background: var(--bg-main);
+  color: var(--ink);
+  font-family: var(--font-ui), system-ui, sans-serif;
+}
+
+.bn {
+  font-family: var(--font-bn-serif), serif;
+  letter-spacing: 0.01em;
+  line-height: 1.75;
+}
+
+.message-enter {
+  animation: messageSlide 0.35s ease-out;
+}
+
+@keyframes messageSlide {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.2; transform: scaleY(0.5); }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+
+.waveform span {
+  animation: pulse-dot 1s ease-in-out infinite;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a2a42;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3a3a52;
+}
+
+.input-ring:focus-within {
+  box-shadow: 0 0 0 2px var(--border-focus), 0 0 20px rgba(212, 80, 80, 0.15);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #d45050, #e06060);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass {
+  background: rgba(26, 26, 46, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.typing-dot {
+  animation: typingBounce 1.4s ease-in-out infinite;
+}
+
+@keyframes typingBounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-6px); }
+}
