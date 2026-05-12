@@ -1,0 +1,60 @@
+# Flutter-specific ignore
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+build/
+
+# Android-specific ignore
+android/app/debug/
+android/app/profile/
+android/app/release/
+android/app/src/main/res/drawable-*/
+android/app/src/main/res/mipmap-*/
+android/local.properties
+android/key.properties
+android/app/src/main/assets/
+android/app/src/main/java/io/flutter/plugins/
+android/app/src/main/kotlin/io/flutter/plugins/
+android/app/src/main/res/values/strings.xml
+android/app/src/main/res/values/styles.xml
+android/app/src/main/res/xml/
+android/app/src/main/res/raw/
+android/app/src/main/res/layout/
+android/app/src/main/res/menu/
+android/app/src/main/res/anim/
+android/app/src/main/res/animator/
+android/app/src/main/res/transition/
+android/app/src/main/res/interpolator/
+android/app/src/main/res/color/
+android/app/src/main/res/font/
+android/app/src/main/res/drawable/
+android/app/src/main/res/mipmap-anydpi-v26/
+android/app/src/main/res/mipmap-hdpi/
+android/app/src/main/res/mipmap-mdpi/
+android/app/src/main/res/mipmap-xhdpi/
+android/app/src/main/res/mipmap-xxhdpi/
+android/app/src/main/res/mipmap-xxxhdpi/
+
+# iOS-specific ignore
+ios/Flutter/Generated.xcconfig
+ios/Flutter/flutter_export_environment.sh
+ios/Flutter/Flutter.podspec
+ios/Flutter/Flutter.framework
+ios/Runner/GeneratedPluginRegistrant.h
+ios/Runner/GeneratedPluginRegistrant.m
+ios/Pods/
+ios/.symlinks/
+ios/Flash/
+
+# Symbolica
+.symbols/
+
+# Others
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.DS_Store
