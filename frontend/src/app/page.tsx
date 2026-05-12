@@ -12,6 +12,7 @@ type RunpodSettings = {
   baseUrl: string;
   apiKey: string;
   modelName: string;
+  backendUrl: string;
 };
 
 interface SpeechRecognitionEvent {
@@ -45,6 +46,7 @@ const DEFAULT_SETTINGS: RunpodSettings = {
   baseUrl: "https://w7b1n4oihy7pv7-8000.proxy.runpod.net/v1",
   apiKey: "anda",
   modelName: "google/gemma-4-E4B-it",
+  backendUrl: "http://localhost:5000",
 };
 
 function loadSettings(): RunpodSettings {
@@ -164,8 +166,9 @@ export default function Home() {
   }, []);
 
   const runHealthCheck = useCallback(async (cfg: RunpodSettings) => {
+    const backendUrl = cfg.backendUrl || "http://localhost:5000";
     try {
-      const res = await fetch("/api/health", {
+      const res = await fetch(`${backendUrl}/health`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -279,7 +282,8 @@ export default function Home() {
     isSendingRef.current = true;
 
     try {
-      const res = await fetch("/api/chat", {
+      const backendUrl = settings.backendUrl || "http://localhost:5000";
+      const res = await fetch(`${backendUrl}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -374,7 +378,8 @@ export default function Home() {
 
   const handleDownloadPdf = async (letterContent: string) => {
     try {
-      const res = await fetch("/api/render-pdf", {
+      const backendUrl = settings.backendUrl || "http://localhost:5000";
+      const res = await fetch(`${backendUrl}/render-pdf`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ letter: letterContent }),
@@ -658,6 +663,15 @@ export default function Home() {
                   value={pendingSettings.modelName}
                   onChange={(e) => setPendingSettings({ ...pendingSettings, modelName: e.target.value })}
                   placeholder="google/gemma-4-E4B-it"
+                  className="w-full rounded-xl border border-[var(--border-light)] bg-[var(--bg-main)] px-4 py-2.5 text-sm text-[var(--ink)] outline-none focus:border-[var(--border-focus)]"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-medium text-[var(--ink-muted)] mb-1.5 block">Backend URL</label>
+                <input
+                  value={pendingSettings.backendUrl}
+                  onChange={(e) => setPendingSettings({ ...pendingSettings, backendUrl: e.target.value })}
+                  placeholder="http://localhost:5000"
                   className="w-full rounded-xl border border-[var(--border-light)] bg-[var(--bg-main)] px-4 py-2.5 text-sm text-[var(--ink)] outline-none focus:border-[var(--border-focus)]"
                 />
               </div>
